@@ -12,7 +12,6 @@ const dateSorter = (a: Appointment, b: Appointment) =>
   dayjs(a.endTime).valueOf() - dayjs(b.endTime).valueOf();
 
 const AppointmentList: React.FC<Props> = ({ appointments }) => {
-  console.log(appointments);
   const appointmentsJsx = appointments
     .sort(dateSorter)
     .map((a: Appointment, i: number) => (

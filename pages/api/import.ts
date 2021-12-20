@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
 import { config } from '../../util/config';
 
-export default async function importAppointments(req, res) {
-  console.log(config.apiUrl, config.apiKey);
-  const result = await fetch(process.env.API_URL, {
+export default async function importAppointments(_req, res) {
+  const result = await fetch(config.apiUrl, {
     method: 'GET',
     headers: {
-      key: process.env.API_KEY,
+      key: config.apiKey,
     },
   });
   const json = await result.json();

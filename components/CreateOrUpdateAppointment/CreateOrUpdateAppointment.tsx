@@ -91,7 +91,6 @@ const CreateOrUpdateAppointment: React.FC = (): JSX.Element => {
 
   const fieldsJsx = fields.map((field, index) => {
     let defaultValue = state.appointment?.[field.id];
-    console.log(defaultValue, field);
     if (defaultValue) {
       if (['startTime', 'endTime'].includes(field.id))
         defaultValue = dayjs(defaultValue).format(TIME);
