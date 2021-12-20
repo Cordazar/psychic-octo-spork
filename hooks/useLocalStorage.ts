@@ -4,17 +4,16 @@ import useEventListener from './useEventListener';
 
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
-/** https://usehooks-ts.com/react-hook/use-local-storage */
+/**
+ * Copied from
+ * https://usehooks-ts.com/react-hook/use-local-storage
+ * But updated to better handle hydration in nextjs
+ **/
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
   // Get from local storage then
   // parse stored json or return initialValue
   const readValue = (): T => {
-    // Prevent build error "window is undefined" but keep keep working
-    if (typeof window === 'undefined') {
-      return initialValue;
-    }
-
     try {
       const item = window.localStorage.getItem(key);
       return item ? (parseJSON(item) as T) : initialValue;
@@ -26,7 +25,7 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
 
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState<T>(readValue);
+  const [storedValue, setStoredValue] = useState<T>(initialValue);
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
