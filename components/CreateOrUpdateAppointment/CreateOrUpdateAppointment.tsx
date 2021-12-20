@@ -5,6 +5,7 @@ import { ActionKind, useAppointmentContext } from '../../context/appointment';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { Appointment } from '../../types/appointment';
+import Button, { ButtonType } from '../Button/Button';
 import Input, { InputProps } from '../Form/Input/Input';
 
 const fields: InputProps[] = [
@@ -119,11 +120,10 @@ const CreateOrUpdateAppointment: React.FC = (): JSX.Element => {
         <fieldset className="flex flex-wrap justify-between">
           {fieldsJsx}
         </fieldset>
-
         <div className={classes.btnContainer}>
-          <button className={classes.button}>
+          <Button variant={ButtonType.Primary}>
             {state.appointment ? 'Update' : 'Add'}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

@@ -7,6 +7,7 @@ import { YEAR } from '../constants/dateTime';
 import useLocalStorage from '../hooks/useLocalStorage';
 import CreateOrUpdateAppointment from '../components/CreateOrUpdateAppointment/CreateOrUpdateAppointment';
 import { ActionKind, useAppointmentContext } from '../context/appointment';
+import Button, { ButtonType } from '../components/Button/Button';
 
 export default function Home() {
   const [appointments, setAppointments] = useLocalStorage('appointments', []);
@@ -51,38 +52,26 @@ export default function Home() {
           </div>
         </header>
         {!hasImported && (
-          <p className="mb-6 text-lg">
+          <p key="import-appointments" className="mb-6 text-lg">
             Get started by importing appointments:{' '}
-            <button
-              className="inline-flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-md text-violet-600 bg-white hover:bg-violet-50"
-              onClick={importAppointments}
-            >
-              Import
-            </button>
+            <Button onClick={importAppointments}>Import</Button>
           </p>
         )}
-        {!state.showForm && (
-          <p className="mb-6 text-lg">
+        {state.showForm ? (
+          <CreateOrUpdateAppointment />
+        ) : (
+          <p key="add-appointment" className="mb-6 text-lg">
             Add a new appointment:{' '}
-            <button
-              className="inline-flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700"
-              onClick={createAppointment}
-            >
+            <Button variant={ButtonType.Primary} onClick={createAppointment}>
               Add appointment
-            </button>
+            </Button>
           </p>
         )}
-        {state.showForm && <CreateOrUpdateAppointment />}
         <AppointmentList appointments={appointments} />
         {(appointments.length > 0 || hasImported) && (
           <p className="mt-8 mb-4 text-lg">
             Reset appointments list:{' '}
-            <button
-              className="inline-flex items-center justify-center px-3 py-1 border border-transparent text-base font-medium rounded-md text-violet-600 bg-white hover:bg-violet-50"
-              onClick={resetAppointments}
-            >
-              Reset
-            </button>
+            <Button onClick={resetAppointments}>Reset</Button>
           </p>
         )}
       </main>
