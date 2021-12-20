@@ -57,15 +57,16 @@ const CreateOrUpdateAppointment: React.FC = (): JSX.Element => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    const newAppointment = [...e.target.elements].reduce(
+    const inputs = [...e.target.elements].filter(
+      (el) => el.tagName.toLowerCase() === 'input'
+    );
+    const newAppointment = inputs.reduce(
       (appointment: Appointment, currentInput) => ({
         ...appointment,
         [currentInput.id]: currentInput.value,
       }),
       {} as Appointment
     );
-
     newAppointment.startTime = dayjs(newAppointment.date)
       .set('hour', newAppointment.startTime.split(':')[0])
       .set('minute', newAppointment.startTime.split(':')[1]);
@@ -116,7 +117,7 @@ const CreateOrUpdateAppointment: React.FC = (): JSX.Element => {
           <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
         </svg>
       </button>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} aria-label="form">
         <fieldset className="flex flex-wrap justify-between">
           {fieldsJsx}
         </fieldset>

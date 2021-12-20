@@ -18,7 +18,6 @@ const AppointmentRow: React.FC<Props> = ({ appointment }) => {
 
   const removeAppointment = () => {
     const index = appointments.findIndex((a) => compare(a, appointment));
-
     setAppointments((prevValue) => {
       prevValue.splice(index, 1);
       return prevValue;
@@ -27,6 +26,7 @@ const AppointmentRow: React.FC<Props> = ({ appointment }) => {
 
   return (
     <tr
+      data-testid="appointment-row"
       className={
         dayjs(appointment?.startTime).isBefore(new Date())
           ? 'italic line-through text-gray-600 bg-gray-100'
@@ -75,6 +75,7 @@ const AppointmentRow: React.FC<Props> = ({ appointment }) => {
         <button
           className="bg-transparent p-1 rounded-md border border-transparent hover:border-red-400"
           aria-label="Remove appointment"
+          data-testid="remove-appointment"
           onClick={() => {
             removeAppointment();
           }}

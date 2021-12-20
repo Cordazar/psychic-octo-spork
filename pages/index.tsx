@@ -45,7 +45,7 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 container">
         <header className="text-center mb-6">
           <div className="relative">
-            <h1 className="px-6 relative inline text-4xl">
+            <h1 className="px-6 relative inline text-4xl" data-testid="heading">
               <span className="font-semibold">Appointments</span> Scheduling
               System
             </h1>
